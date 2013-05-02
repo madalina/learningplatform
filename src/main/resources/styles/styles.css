@@ -1,0 +1,68 @@
+/* Application wide styles */
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#9E9FA1, #9E9FA1);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover{
+    -fx-base: #395bae;
+}
+
+.delete-button {
+    -fx-text-fill: orange;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#9E9FA1, #9E9FA1);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+/* Component specific styles */
+
+
+.main-panel {
+    -fx-background-image: url("../images/background.jpg");
+}
+
+.hello-message {
+    -fx-text-fill: #AA0000;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.left-menu {
+   -fx-background-color: linear-gradient(#000000, #000000);
+}
+
+.left-menu-title {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    -fx-font-align: center;
+}
+
+#addDeckBtn {
+    -fx-background-color: linear-gradient(#DB7304, #DB7304);
+}
+
+.left-menu-note-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-align: center;
+}
+
+.note-preview {
+    -fx-background-image: url("../images/background.jpg");
+}
+

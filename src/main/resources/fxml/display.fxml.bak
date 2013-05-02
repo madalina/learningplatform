@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane fx:id="borderPane" minWidth="445.0" styleClass="main-panel" xmlns:fx="http://javafx.com/fxml" fx:controller="com.madi.learningplatform.controller.DisplayScreenController">
+  <center>
+    <AnchorPane fx:id="currentCollectionContent" focusTraversable="true" BorderPane.alignment="CENTER">
+      <children>
+        <ScrollPane fx:id="notesScrollPane" prefHeight="498.0" prefWidth="761.0" styleClass="main-panel">
+          <content>
+            <TableView fx:id="notesContainer" prefHeight="285.0" prefWidth="751.0">
+              <columns>
+                <TableColumn minWidth="200.0" prefWidth="250.0" text="Front" fx:id="frontColumn" />
+                <TableColumn minWidth="200.0" prefWidth="250.0" text="Back" fx:id="backColumn" />
+                <TableColumn minWidth="200.0" prefWidth="250.0" text="Date added" fx:id="dateAddedColumn" />
+              </columns>
+            </TableView>
+          </content>
+        </ScrollPane>
+        <VBox id="VBox" fx:id="noteDetails" alignment="CENTER" layoutX="-3.0" layoutY="325.0" prefWidth="751.0" spacing="5.0">
+          <children>
+            <HBox id="HBox" fx:id="newNoteBox" alignment="CENTER" spacing="5.0" />
+            <TextArea fx:id="noteFront" prefHeight="34.0" wrapText="true" />
+            <TextArea fx:id="noteBack" prefHeight="34.0" wrapText="true" />
+            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+              <children>
+                <Button fx:id="addNoteBtn" mnemonicParsing="false" onAction="#addNewNoteHandler" prefWidth="108.0" text="+ New Note" />
+                <Button fx:id="btnSaveNoteChanges" mnemonicParsing="false" onAction="#saveNoteChanges" prefWidth="108.0" text="Save changes" />
+                <Button mnemonicParsing="false" onAction="#deleteNote" prefWidth="108.0" styleClass="delete-button" text="Delete note" />
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </children>
+    </AnchorPane>
+  </center>
+  <left>
+    <VBox id="leftMenu" fx:id="leftSidebar" prefHeight="545.0" prefWidth="225.0" styleClass="left-menu">
+      <children>
+        <Label id="colectionsLabel" fx:id="collectionsLabel" alignment="CENTER" prefHeight="22.0" prefWidth="225.0" styleClass="left-menu-title" text="COLLECTIONS" />
+        <TextField fx:id="addCollectionTextField" alignment="CENTER" onAction="#addCollectionHandler" opacity="0.84" minHeight="10" prefWidth="225.0" promptText="New collection">
+          <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </VBox.margin>
+        </TextField>
+        <VBox fx:id="collectionsVBox" prefHeight="498.0" prefWidth="225.0" />
+      </children>
+    </VBox>
+  </left>
+  <stylesheets>
+    <URL value="@../styles/styles.css" />
+  </stylesheets>
+  <top>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+      <children>
+        <ImageView fitHeight="22.0" fitWidth="29.333333333333332" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../images/user.png" preserveRatio="false" smooth="false" />
+          </image>
+        </ImageView>
+        <Label fx:id="usernameLabel" prefWidth="159.0" text="user" />
+      </children>
+      <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+    </HBox>
+  </top>
+</BorderPane>
