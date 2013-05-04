@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -126,13 +127,11 @@ public class DisplayScreenController implements Initializable {
             collectionRow.getStyleClass().add("left-menu-row");
             collectionRow.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent mouseEvent) {
-                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                         setCurrentCollection(collection);
                         switchToCollectionView();
                     }
-                }
             });
-
+            
             ImageView icon = new ImageView();
             icon.setImage(new Image("/images/1366249227_Blank-Catalog.png"));
             icon.setFitHeight(45);

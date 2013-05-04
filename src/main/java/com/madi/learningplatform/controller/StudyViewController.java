@@ -43,13 +43,20 @@ public class StudyViewController extends AnchorPane  {
         }
         this.collectionService = collectionService;
         this.notesService = notesService;
-        AnchorPane.setLeftAnchor(content, 10.0);
-        AnchorPane.setRightAnchor(content, 10.0);
+        if(State.getSelectedCollection() == null)
+        {
+            log.warn("No collection selected");
+            return;
+        }
+        AnchorPane.setLeftAnchor(content, 100.0);
+        AnchorPane.setRightAnchor(content, 100.0);
         log.info("Initialized study view controller for collection " + State.getSelectedCollection().getName());
         start();
     }
     
     private void start() {
+        if(notesService.notesCurrentCollection.size() == 0)
+            return;
         setCurrentNote(0);
         showNote();
     }

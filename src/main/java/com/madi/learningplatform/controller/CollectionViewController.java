@@ -18,6 +18,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
@@ -33,7 +36,7 @@ import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
 import com.madi.learningplatform.service.NoteService;
 
-public class CollectionViewController extends VBox {
+public class CollectionViewController extends AnchorPane {
     private static final Logger log = LoggerFactory
             .getLogger(CollectionViewController.class);
 
@@ -41,6 +44,10 @@ public class CollectionViewController extends VBox {
     private NoteService notesService;
     private DisplayScreenController parentController;
 
+    @FXML
+    protected VBox content;
+    @FXML
+    protected ScrollPane notesScrollPane;
     @FXML
     protected TableView<Note> notesTableView;
     @FXML
@@ -54,13 +61,11 @@ public class CollectionViewController extends VBox {
     @FXML
     protected TextArea noteBack;
     @FXML
-    protected ScrollPane notesScrollPane;
-    @FXML
     protected VBox noteDetails;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public CollectionViewController(DisplayScreenController parentController, CollectionService collectionService,
-            NoteService notesService){
+    public CollectionViewController(DisplayScreenController parentController,
+            CollectionService collectionService, NoteService notesService) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "/fxml/collectionview.fxml"));
         fxmlLoader.setController(this);
@@ -70,43 +75,48 @@ public class CollectionViewController extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        
+
+        AnchorPane.setLeftAnchor(content, 50.0);
+        AnchorPane.setRightAnchor(content, 50.0);
+        notesScrollPane.setFitToWidth(true);
+
         this.parentController = parentController;
         this.collectionService = collectionService;
         this.notesService = notesService;
         log.info("Initialized collection view controller for collection "
                 + State.getSelectedCollection().getName());
-        
-        try
-        {
-        noteFront.setText("");
-        noteBack.setText("");
-        
-        notesTableView.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener() {
-                    public void changed(ObservableValue observable,
-                            Object oldValue, Object newValue) {
-                        Note selectedNote = (Note) newValue;
-                        if (newValue != null) {
-                            noteFront.setText(selectedNote.getFront());
-                            noteBack.setText(selectedNote.getBack());
-                        }
-                    }
-                });
 
-        frontColumn.setCellValueFactory(new PropertyValueFactory<Note, String>(
-                "front"));
-        backColumn.setCellValueFactory(new PropertyValueFactory<Note, String>(
-                "back"));
-        dateAddedColumn
-                .setCellValueFactory(new PropertyValueFactory<Note, String>(
-                        "dateAdded"));
-        notesTableView.setItems(notesService.notesCurrentCollection);
-        }
-        catch(Exception e) {
+        try {
+            noteFront.setText("");
+            noteBack.setText("");
+
+            notesTableView.getSelectionModel().selectedItemProperty()
+                    .addListener(new ChangeListener() {
+                        public void changed(ObservableValue observable,
+                                Object oldValue, Object newValue) {
+                            Note selectedNote = (Note) newValue;
+                            if (newValue != null) {
+                                noteFront.setText(selectedNote.getFront());
+                                noteBack.setText(selectedNote.getBack());
+                            }
+                        }
+                    });
+
+            frontColumn
+                    .setCellValueFactory(new PropertyValueFactory<Note, String>(
+                            "front"));
+            backColumn
+                    .setCellValueFactory(new PropertyValueFactory<Note, String>(
+                            "back"));
+            dateAddedColumn
+                    .setCellValueFactory(new PropertyValueFactory<Note, String>(
+                            "dateAdded"));
+            notesTableView.setItems(notesService.notesCurrentCollection);
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
     }
+
     public void addNewNoteHandler() {
         if (State.getSelectedCollection() == null) {
             log.error("No collection selected.");

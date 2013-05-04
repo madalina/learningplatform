@@ -7,6 +7,10 @@
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
 
+.text-field {
+    -fx-background-radius: 5.0;
+}
+
 .button {
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
@@ -63,6 +67,11 @@
 }
 
 .note-preview {
-    -fx-background-image: url("../images/background.jpg");
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-align: center;
+    -fx-font-size: 16px;
+    -fx-background-radius: 5.0; 
+    -fx-padding: 8;
 }
 

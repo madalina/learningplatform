@@ -7,30 +7,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml">
-  <ScrollPane fx:id="notesScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" prefWidth="761.0" styleClass="main-panel">
-    <content>
-      <TableView id="notesContainer" fx:id="notesTableView" prefHeight="285.0" prefWidth="751.0">
-        <columns>
-          <TableColumn minWidth="200.0" prefWidth="250.0" text="Front" fx:id="frontColumn" />
-          <TableColumn minWidth="200.0" prefWidth="250.0" text="Back" fx:id="backColumn" />
-          <TableColumn minWidth="200.0" prefWidth="250.0" text="Date added" fx:id="dateAddedColumn" />
-        </columns>
-      </TableView>
-    </content>
-  </ScrollPane>
-  <VBox id="VBox" fx:id="noteDetails" alignment="CENTER" prefHeight="103.0" prefWidth="751.0" spacing="5.0">
-    <children>
-      <HBox id="HBox" alignment="CENTER" spacing="5.0" />
-      <TextArea fx:id="noteFront" prefHeight="34.0" wrapText="true" />
-      <TextArea fx:id="noteBack" prefHeight="34.0" wrapText="true" />
-      <HBox id="HBox" alignment="CENTER" spacing="5.0">
-        <children>
-          <Button id="addNoteBtn" mnemonicParsing="false" onAction="#addNewNoteHandler" prefWidth="108.0" text="+ New Note" />
-          <Button id="btnSaveNoteChanges" mnemonicParsing="false" onAction="#saveNoteChanges" prefWidth="108.0" text="Save changes" />
-          <Button mnemonicParsing="false" onAction="#deleteNote" prefWidth="108.0" styleClass="delete-button" text="Delete note" />
-        </children>
-      </HBox>
-    </children>
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
+  <VBox fx:id="content">
+    <ScrollPane fx:id="notesScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" styleClass="main-panel" vmax="0.0" VBox.vgrow="ALWAYS">
+      <content>
+        <TableView id="notesContainer" fx:id="notesTableView" maxWidth="1.7976931348623157E308" prefHeight="285.0">
+          <columns>
+            <TableColumn minWidth="200.0" prefWidth="250.0" text="Front" fx:id="frontColumn" />
+            <TableColumn minWidth="200.0" prefWidth="250.0" text="Back" fx:id="backColumn" />
+            <TableColumn minWidth="200.0" prefWidth="250.0" text="Date added" fx:id="dateAddedColumn" />
+          </columns>
+        </TableView>
+      </content>
+    </ScrollPane>
+    <VBox id="VBox" fx:id="noteDetails" alignment="CENTER" prefHeight="103.0" prefWidth="751.0" spacing="5.0">
+      <children>
+        <HBox id="HBox" alignment="CENTER" spacing="5.0" />
+        <TextArea fx:id="noteFront" prefHeight="34.0" wrapText="true" />
+        <TextArea fx:id="noteBack" prefHeight="34.0" wrapText="true" />
+        <HBox id="HBox" alignment="CENTER" spacing="5.0">
+          <children>
+            <Button id="addNoteBtn" mnemonicParsing="false" onAction="#addNewNoteHandler" prefWidth="108.0" text="+ New Note" />
+            <Button id="btnSaveNoteChanges" mnemonicParsing="false" onAction="#saveNoteChanges" prefWidth="108.0" text="Save changes" />
+            <Button mnemonicParsing="false" onAction="#deleteNote" prefWidth="108.0" styleClass="delete-button" text="Delete note" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
   </VBox>
 </fx:root>
