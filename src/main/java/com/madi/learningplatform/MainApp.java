@@ -111,4 +111,24 @@ public class MainApp extends Application {
         errorDialog.show();
         
     }
+    
+    public void showInfoDialog(String message) {
+        final Stage errorDialog = new Stage();
+        errorDialog.initModality(Modality.WINDOW_MODAL);
+
+        final Label messageLabel = new Label();
+        messageLabel.setText(message);
+        final Scene errorDialogScene;
+
+        errorDialogScene = new Scene(VBoxBuilder.create()
+                .children(messageLabel).alignment(Pos.CENTER)
+                .padding(new Insets(10)).build());
+
+        errorDialog.setTitle("Info");
+        errorDialog.setWidth(300);
+        errorDialog.setScene(errorDialogScene);
+        errorDialog.show();
+        
+    }
+    
 }

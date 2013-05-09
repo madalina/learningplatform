@@ -22,7 +22,7 @@
         <HBox id="HBox" alignment="CENTER" spacing="5.0">
           <children>
             <Button id="btn" fx:id="btnRepeat" contentDisplay="CENTER" mnemonicParsing="false" onAction="#repeatSoonHandler" text="Remind me soon (1)" />
-            <Button id="btn" fx:id="btnRepeatLater" mnemonicParsing="false" text="Remind me later (2)" onAction = "#repeatLaterHandler" />
+            <Button id="btn" fx:id="btnRepeatLater" mnemonicParsing="false" text="Remind me later (email) (2)" onAction = "#repeatLaterHandler" />
             <Button id="btn" fx:id="btnLearned" mnemonicParsing="false" text="Learned (3)" onAction="#learnedHandler" />
           </children>
           <padding>

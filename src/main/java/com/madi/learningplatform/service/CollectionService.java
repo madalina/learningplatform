@@ -146,4 +146,16 @@ public class CollectionService {
             collection.findAndModify(whereQuery, newObject);
         }
     }
+
+    /**
+     * A collection is available for studying if it has at least 1 unlearned note.
+     */
+    public boolean isSelectedCollectionRelevantForStudy() {
+        DBCollection table = State.getDatabaseConn().getCollection("notes");
+        BasicDBObject queryObj = new BasicDBObject();
+        queryObj.put("collection", State.getSelectedCollection().getId());
+        queryObj.put("learned", false);
+        DBCursor cursor = table.find(queryObj);
+        return cursor.count() > 0;
+    }
 }

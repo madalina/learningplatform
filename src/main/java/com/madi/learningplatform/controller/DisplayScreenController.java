@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.madi.learningplatform.Collection;
 import com.madi.learningplatform.CollectionDuplicateException;
 import com.madi.learningplatform.MainApp;
+import com.madi.learningplatform.Note;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
 import com.madi.learningplatform.service.NoteService;
@@ -69,6 +70,18 @@ public class DisplayScreenController implements Initializable {
         notesService = new NoteService();
         
         collectionService.collections.addListener(new ListChangeListener<Collection>() {
+            public void onChanged(ListChangeListener.Change change) {
+                refreshCollectionList();
+            }
+        });
+        
+        notesService.notesCurrentCollection.addListener(new ListChangeListener<Note>() {
+            public void onChanged(ListChangeListener.Change change) {
+                refreshCollectionList();
+            }
+        });
+        
+        notesService.unlearnedNotesCurrentCollection.addListener(new ListChangeListener<Note>() {
             public void onChanged(ListChangeListener.Change change) {
                 refreshCollectionList();
             }
@@ -107,6 +120,12 @@ public class DisplayScreenController implements Initializable {
     }
 
     protected void switchToStudyView() {
+        if(!collectionService.isSelectedCollectionRelevantForStudy())
+        {
+            State.getMainApp().showErrorDialog("There are no unlearned notes in this collection.");
+            return;
+        }
+        
         studyView = new StudyViewController(collectionService, notesService);
         borderPane.setCenter(studyView);
     }
@@ -141,7 +160,7 @@ public class DisplayScreenController implements Initializable {
                     + notesService.countNotesInCollection(collection.getId()) + ")");
             collectionLabel.getStyleClass().add("left-menu-note-label");
             collectionLabel.setContextMenu(contextMenu);
-            Label unlearnedLabel = new Label(notesService.countUnlearnedNotesInCollection(collection.getId())+ " unlearned");
+            Label unlearnedLabel = new Label("[" + notesService.countUnlearnedNotesInCollection(collection.getId())+ " unlearned ]");
             unlearnedLabel.getStyleClass().add("left-menu-note-label");
             
             labelBox.setAlignment(Pos.CENTER);

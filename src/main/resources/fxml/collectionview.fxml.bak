@@ -14,7 +14,6 @@
         <TableView id="notesContainer" fx:id="notesTableView" maxWidth="1.7976931348623157E308" prefHeight="285.0">
           <columns>
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Front" fx:id="frontColumn" />
-            <TableColumn minWidth="200.0" prefWidth="250.0" text="Back" fx:id="backColumn" />
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Date added" fx:id="dateAddedColumn" />
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Learned" fx:id="learnedColumn" />
           </columns>
@@ -26,6 +25,11 @@
         <HBox id="HBox" alignment="CENTER" spacing="5.0" />
         <TextArea fx:id="noteFront" prefHeight="34.0" wrapText="true" />
         <TextArea fx:id="noteBack" prefHeight="34.0" wrapText="true" />
+        <HBox id="HBox" alignment="BOTTOM_LEFT" spacing="5.0">
+          <children>
+            <CheckBox fx:id="learnedCheckbox" mnemonicParsing="false" text="Learned" />
+          </children>
+        </HBox>
         <HBox id="HBox" alignment="CENTER" spacing="5.0">
           <children>
             <Button id="addNoteBtn" mnemonicParsing="false" onAction="#addNewNoteHandler" prefWidth="108.0" text="+ New Note" />

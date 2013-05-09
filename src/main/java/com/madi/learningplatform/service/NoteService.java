@@ -55,7 +55,7 @@ public class NoteService {
             Note note = new Note((ObjectId)row.get("_id"), row.get("front").toString(), row.get("back").toString(), d, learned);
             notesCurrentCollection.add(note);
             
-            if(note.getLearned())
+            if(!note.getLearned())
                 unlearnedNotesCurrentCollection.add(note);
         }
     }

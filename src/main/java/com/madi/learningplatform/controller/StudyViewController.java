@@ -2,15 +2,20 @@ package com.madi.learningplatform.controller;
 
 import java.io.IOException;
 import java.util.Collections;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.madi.learningplatform.NoMoreUnlearnedNotesException;
+
 import com.madi.learningplatform.Note;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
@@ -52,22 +57,28 @@ public class StudyViewController extends AnchorPane  {
         AnchorPane.setLeftAnchor(content, 100.0);
         AnchorPane.setRightAnchor(content, 100.0);
         log.info("Initialized study view controller for collection " + State.getSelectedCollection().getName());
-        try
-        {
-            start();
-        }
-        catch(NoMoreUnlearnedNotesException ex) {
-            log.error(ex.getMessage());
-            //TODO happy dialog
-        }
+        
+        final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
+            public void handle(final KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.NUMPAD0) {
+                    learnedHandler();
+                }
+                else if (keyEvent.getCode() == KeyCode.NUMPAD1) {
+                    repeatSoonHandler();
+                }
+                else if (keyEvent.getCode() == KeyCode.NUMPAD2) {
+                        repeatLaterHandler();
+                    }
+            }
+        };
+
+        this.setOnKeyReleased(keyEventHandler);
+
+        start();
     }
     
-    private void start() throws NoMoreUnlearnedNotesException {
-        if(notesService.unlearnedNotesCurrentCollection.size() == 0)
-        {
-            throw new NoMoreUnlearnedNotesException();
-        }
-        Collections.shuffle(notesService.notesCurrentCollection);
+    private void start() {
+        Collections.shuffle(notesService.unlearnedNotesCurrentCollection);
         setCurrentNote(0);
         showNote();
         hideOptionsButtons();
@@ -75,7 +86,7 @@ public class StudyViewController extends AnchorPane  {
 
     private void setCurrentNote(int i) {
         currentNoteIndex = i;
-        currentNote = notesService.notesCurrentCollection.get(currentNoteIndex);
+        currentNote = notesService.unlearnedNotesCurrentCollection.get(currentNoteIndex);
     }
 
     private void showNote() {
@@ -107,25 +118,30 @@ public class StudyViewController extends AnchorPane  {
     }
 
     public void showNextNote() {
-        try
+        if(!collectionService.isSelectedCollectionRelevantForStudy())
         {
-            setCurrentNote(getNextNoteIndex());
-            showNote();
-            hideOptionsButtons();
+            State.getMainApp().showInfoDialog("Congrats! You learned all the notes in this collection!");
+            return;
         }
-        catch(NoMoreUnlearnedNotesException ex) {
-            log.error("Learned all notes in this collection! ");
-            //TODO happy dialog
-        }
+
+        setCurrentNote(getNextNoteIndex());
+        showNote();
+        hideOptionsButtons();
     }
     
-    private int getNextNoteIndex() throws NoMoreUnlearnedNotesException {
-        if(notesService.unlearnedNotesCurrentCollection.size() == 0)
-            throw new NoMoreUnlearnedNotesException();
-           
-        int index = (currentNoteIndex+1) % notesService.notesCurrentCollection.size();
-        while(notesService.notesCurrentCollection.get(index).getLearned())
-            index = (currentNoteIndex+2) % notesService.notesCurrentCollection.size();
+    private int getNextNoteIndex() {
+        int index = (currentNoteIndex+1) % notesService.unlearnedNotesCurrentCollection.size();
+        int loop = 0; // safety net in case of infinite loops
+        while(notesService.unlearnedNotesCurrentCollection.get(index).getLearned() && loop <= 10000)
+        {
+            index = (currentNoteIndex+2) % notesService.unlearnedNotesCurrentCollection.size();
+            loop++;
+        }
+        
+        if(loop == 10000)
+        {
+            log.error("Infinite loop detected while trying to fetch the next unlearned note");
+        }
         return index;
     }
 
@@ -138,14 +154,17 @@ public class StudyViewController extends AnchorPane  {
         notesService.markLearned(currentNote.getId());
         currentNote.setLearned(true);
         showNextNote();
+        log.debug("Marked as learned");
     }
     
     public void repeatSoonHandler() {
         showNextNote();
+        log.debug("Will repeat soon");
     }
     
     public void repeatLaterHandler() {
         showNextNote();
+        log.debug("Will add to reminder queue");
     }
 
 }

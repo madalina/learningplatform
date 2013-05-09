@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.CollectionNotFoundException;
 import com.madi.learningplatform.Note;
+import com.madi.learningplatform.NoteNotFoundException;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
 import com.madi.learningplatform.service.NoteService;
@@ -65,6 +66,7 @@ public class CollectionViewController extends AnchorPane {
     protected TextArea noteBack;
     @FXML
     protected VBox noteDetails;
+    @FXML protected CheckBox learnedCheckbox;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public CollectionViewController(DisplayScreenController parentController,
@@ -79,8 +81,8 @@ public class CollectionViewController extends AnchorPane {
             throw new RuntimeException(exception);
         }
 
-        AnchorPane.setLeftAnchor(content, 50.0);
-        AnchorPane.setRightAnchor(content, 50.0);
+        AnchorPane.setLeftAnchor(content, 10.0);
+        AnchorPane.setRightAnchor(content, 10.0);
         notesScrollPane.setFitToWidth(true);
 
         this.parentController = parentController;
@@ -99,6 +101,7 @@ public class CollectionViewController extends AnchorPane {
                             if (newValue != null) {
                                 noteFront.setText(selectedNote.getFront());
                                 noteBack.setText(selectedNote.getBack());
+                                learnedCheckbox.setSelected(selectedNote.getLearned());
                             }
                         }
                     });
@@ -193,15 +196,29 @@ public class CollectionViewController extends AnchorPane {
                 .getSelectedItem();
         selectedNote.setFront(noteFront.getText());
         selectedNote.setBack(noteBack.getText());
-        notesService.updateNote(selectedNote);
+        try {
+            notesService.updateNote(selectedNote);
+        } catch (NoteNotFoundException e) {
+            State.getMainApp().showErrorDialog(e.getMessage());
+        }
         refreshNotesContainer();
+    }
+    
+    public void noteLearnedHandler() {
+        Note selectedNote = notesTableView.getSelectionModel()
+                .getSelectedItem();
+        selectedNote.setLearned(learnedCheckbox.isSelected());
     }
 
     public void deleteNote() throws JsonParseException, JsonMappingException,
             IOException {
         Note selectedNote = notesTableView.getSelectionModel()
                 .getSelectedItem();
-        notesService.deleteNote(selectedNote);
+        try {
+            notesService.deleteNote(selectedNote);
+        } catch (NoteNotFoundException e) {
+            State.getMainApp().showErrorDialog(e.getMessage());
+        }
         refreshNotesContainer();
     }
     
