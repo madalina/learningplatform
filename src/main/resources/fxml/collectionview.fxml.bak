@@ -11,11 +11,12 @@
   <VBox fx:id="content">
     <ScrollPane fx:id="notesScrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="289.0" styleClass="main-panel" vmax="0.0" VBox.vgrow="ALWAYS">
       <content>
-        <TableView id="notesContainer" fx:id="notesTableView" prefHeight="285.0">
+        <TableView id="notesContainer" fx:id="notesTableView" maxWidth="1.7976931348623157E308" prefHeight="285.0">
           <columns>
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Front" fx:id="frontColumn" />
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Back" fx:id="backColumn" />
             <TableColumn minWidth="200.0" prefWidth="250.0" text="Date added" fx:id="dateAddedColumn" />
+            <TableColumn minWidth="200.0" prefWidth="250.0" text="Learned" fx:id="learnedColumn" />
           </columns>
         </TableView>
       </content>

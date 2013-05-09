@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.Collection;
+import com.madi.learningplatform.CollectionDuplicateException;
+import com.madi.learningplatform.CollectionNotFoundException;
 import com.madi.learningplatform.State;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -47,19 +49,61 @@ public class CollectionService {
         }
         return result;
     }
-    public void addCollection(Collection col) {
-        DBCollection table = State.getDatabaseConn().getCollection("collections");
-        BasicDBObject document = new BasicDBObject();
-        document.put("name", col.getName());
-        table.insert(document);
+    
+    public Collection getCollection(String name) throws CollectionNotFoundException {
+        DBCollection table = State.getDatabaseConn()
+                .getCollection("collections");
+        BasicDBObject queryObject = new BasicDBObject();
+        queryObject.put("name", name);
         
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("name", col.getName());
-        DBCursor cursor = table.find(whereQuery);
-        while (cursor.hasNext()) {
-            DBObject row = cursor.next();
-            collections.add(new Collection( (ObjectId)row.get("_id"), row.get("name").toString()));
+        DBCursor cursor = table.find(queryObject);
+        if (cursor.hasNext()) {
+          DBObject row = cursor.next();
+          return new Collection((ObjectId)row.get("_id"), row.get("name").toString());  
         }
+        
+        throw new CollectionNotFoundException();  
+    }
+    
+    public Collection getCollection(ObjectId id) throws CollectionNotFoundException {
+        DBCollection table = State.getDatabaseConn()
+                .getCollection("collections");
+        BasicDBObject queryObject = new BasicDBObject();
+        queryObject.put("_id", id);
+        
+        DBCursor cursor = table.find(queryObject);
+        if (cursor.hasNext()) {
+          DBObject row = cursor.next();
+          return new Collection((ObjectId)row.get("_id"), row.get("name").toString());  
+        }
+        
+        throw new CollectionNotFoundException();  
+    }
+    
+    public void addCollection(Collection col) throws CollectionDuplicateException {
+        
+        try
+        {
+            getCollection(col.getName());
+            throw new CollectionDuplicateException();
+        }
+        catch(CollectionNotFoundException ex) 
+        {
+            DBCollection table = State.getDatabaseConn().getCollection("collections");
+            BasicDBObject document = new BasicDBObject();
+            document.put("name", col.getName());
+            table.insert(document);
+            
+            BasicDBObject whereQuery = new BasicDBObject();
+            whereQuery.put("name", col.getName());
+            DBCursor cursor = table.find(whereQuery);
+            while (cursor.hasNext()) {
+                DBObject row = cursor.next();
+                collections.add(new Collection( (ObjectId)row.get("_id"), row.get("name").toString()));
+            }
+            return;
+        }
+        
     }
 
     public void deleteCollection(ObjectId id) {

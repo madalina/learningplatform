@@ -50,6 +50,8 @@ public class Collection implements Comparable<Collection>{
     }
     
     public int compareTo(Collection o) {
+        if(this.getName() == null || o == null || o.getName() == null)
+            return -1;
         return o.getName().compareTo(this.getName());
     }
     public void addNote(Note note) {

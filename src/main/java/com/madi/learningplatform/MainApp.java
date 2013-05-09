@@ -4,8 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import org.slf4j.Logger;
@@ -86,5 +91,24 @@ public class MainApp extends Application {
         primaryStage.setScene(getScene(choice));
         primaryStage.show();
         primaryStage.centerOnScreen();
+    }
+    
+    public void showErrorDialog(String message) {
+        final Stage errorDialog = new Stage();
+        errorDialog.initModality(Modality.WINDOW_MODAL);
+
+        final Label messageLabel = new Label();
+        messageLabel.setText(message);
+        final Scene errorDialogScene;
+
+        errorDialogScene = new Scene(VBoxBuilder.create()
+                .children(messageLabel).alignment(Pos.CENTER)
+                .padding(new Insets(10)).build());
+
+        errorDialog.setTitle("Error");
+        errorDialog.setWidth(300);
+        errorDialog.setScene(errorDialogScene);
+        errorDialog.show();
+        
     }
 }

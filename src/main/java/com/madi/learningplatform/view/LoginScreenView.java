@@ -1,13 +1,9 @@
 package com.madi.learningplatform.view;
 
 import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class LoginScreenView extends View
 {
@@ -25,5 +21,4 @@ public class LoginScreenView extends View
         }
         return rootNode;
     }
-
 }

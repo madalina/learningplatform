@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -22,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -38,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.Collection;
+import com.madi.learningplatform.CollectionDuplicateException;
 import com.madi.learningplatform.MainApp;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
@@ -133,18 +132,22 @@ public class DisplayScreenController implements Initializable {
             });
             
             ImageView icon = new ImageView();
-            icon.setImage(new Image("/images/1366249227_Blank-Catalog.png"));
-            icon.setFitHeight(45);
+            icon.setImage(new Image("/images/1366248963_Notes.png"));
+            icon.setFitHeight(40);
             icon.setFitWidth(40);
             VBox labelBox = new VBox();
 
             Label collectionLabel = new Label(collection.getName() + " ("
-                    + notesService.countNotesInCollection(collection.getId())
-                    + ")");
+                    + notesService.countNotesInCollection(collection.getId()) + ")");
             collectionLabel.getStyleClass().add("left-menu-note-label");
             collectionLabel.setContextMenu(contextMenu);
-            labelBox.getChildren().add(collectionLabel);
+            Label unlearnedLabel = new Label(notesService.countUnlearnedNotesInCollection(collection.getId())+ " unlearned");
+            unlearnedLabel.getStyleClass().add("left-menu-note-label");
+            
             labelBox.setAlignment(Pos.CENTER);
+            
+            labelBox.getChildren().add(collectionLabel);
+            labelBox.getChildren().add(unlearnedLabel);
 
             collectionRow.getChildren().add(icon);
             collectionRow.getChildren().add(labelBox);
@@ -160,8 +163,17 @@ public class DisplayScreenController implements Initializable {
     public void addCollectionHandler() {
         String name = addCollectionTextField.getText();
         if (!name.isEmpty())
-            collectionService.addCollection(new Collection(name));
-        addCollectionTextField.setText("");
+        {
+            try
+            {
+                collectionService.addCollection(new Collection(name));
+                addCollectionTextField.setText("");
+            }
+            catch(CollectionDuplicateException ex)
+            {
+                State.getMainApp().showErrorDialog(ex.getMessage());                
+            }
+        }
     }
 
     public void deleteSelectedCollection() {
@@ -227,7 +239,7 @@ public class DisplayScreenController implements Initializable {
         State.setSelectedCollection(collection);
 
         try {
-            notesService.loadNotesCurrentCollection(collection.getId());
+            notesService.loadNotesInCollection(collection.getId());
         } catch (JsonParseException e) {
             log.error(e.getMessage(), e);
         } catch (JsonMappingException e) {

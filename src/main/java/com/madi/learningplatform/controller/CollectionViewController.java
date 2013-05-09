@@ -10,7 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -19,18 +22,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.madi.learningplatform.CollectionNotFoundException;
 import com.madi.learningplatform.Note;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.service.CollectionService;
@@ -56,6 +57,8 @@ public class CollectionViewController extends AnchorPane {
     protected TableColumn<Note, String> backColumn;
     @FXML
     protected TableColumn<Note, String> dateAddedColumn;
+    @FXML
+    protected TableColumn<Note, String> learnedColumn;
     @FXML
     protected TextArea noteFront;
     @FXML
@@ -83,8 +86,6 @@ public class CollectionViewController extends AnchorPane {
         this.parentController = parentController;
         this.collectionService = collectionService;
         this.notesService = notesService;
-        log.info("Initialized collection view controller for collection "
-                + State.getSelectedCollection().getName());
 
         try {
             noteFront.setText("");
@@ -105,12 +106,12 @@ public class CollectionViewController extends AnchorPane {
             frontColumn
                     .setCellValueFactory(new PropertyValueFactory<Note, String>(
                             "front"));
-            backColumn
-                    .setCellValueFactory(new PropertyValueFactory<Note, String>(
-                            "back"));
             dateAddedColumn
                     .setCellValueFactory(new PropertyValueFactory<Note, String>(
                             "dateAdded"));
+            learnedColumn.setCellValueFactory(new PropertyValueFactory<Note, String>(
+                    "learned"));
+                
             notesTableView.setItems(notesService.notesCurrentCollection);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -140,8 +141,15 @@ public class CollectionViewController extends AnchorPane {
                     }
                     String front = noteFront.getText();
                     String back = noteBack.getText();
+                    try
+                    {
                     notesService.addNote(new Note(front, back),
                             State.getSelectedCollection());
+                    }
+                    catch(CollectionNotFoundException ex) {
+                        State.getMainApp().showErrorDialog(ex.getMessage());
+                    }
+                    
                     try {
                         refreshNotesContainer();
                     } catch (JsonParseException e) {
@@ -173,7 +181,7 @@ public class CollectionViewController extends AnchorPane {
 
     public void refreshNotesContainer() throws JsonParseException,
             JsonMappingException, IOException {
-        notesService.loadNotesCurrentCollection(State.getSelectedCollection()
+        notesService.loadNotesInCollection(State.getSelectedCollection()
                 .getId());
         notesTableView.setItems(notesService.notesCurrentCollection);
 
@@ -195,6 +203,48 @@ public class CollectionViewController extends AnchorPane {
                 .getSelectedItem();
         notesService.deleteNote(selectedNote);
         refreshNotesContainer();
+    }
+    
+    class BooleanCell extends TableCell<Note, Boolean> {
+        private CheckBox checkBox;
+        public BooleanCell() {
+            checkBox = new CheckBox();
+            checkBox.setDisable(true);
+            checkBox.selectedProperty().addListener(new ChangeListener<Boolean> () {
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if(isEditing())
+                        commitEdit(newValue == null ? false : newValue);
+                }
+            });
+            this.setGraphic(checkBox);
+            this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            this.setEditable(true);
+        }
+        @Override
+        public void startEdit() {
+            super.startEdit();
+            if (isEmpty()) {
+                return;
+            }
+            checkBox.setDisable(false);
+            checkBox.requestFocus();
+        }
+        @Override
+        public void cancelEdit() {
+            super.cancelEdit();
+            checkBox.setDisable(true);
+        }
+        public void commitEdit(Boolean value) {
+            super.commitEdit(value);
+            checkBox.setDisable(true);
+        }
+        @Override
+        public void updateItem(Boolean item, boolean empty) {
+            super.updateItem(item, empty);
+            if (!isEmpty()) {
+                checkBox.setSelected(item);
+            }
+        }
     }
 
 }

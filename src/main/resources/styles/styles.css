@@ -70,8 +70,8 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-font-align: center;
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
     -fx-background-radius: 5.0; 
-    -fx-padding: 8;
+    -fx-padding: 30;
 }
 
