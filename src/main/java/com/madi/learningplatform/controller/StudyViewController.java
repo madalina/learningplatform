@@ -60,8 +60,8 @@ public class StudyViewController extends AnchorPane  {
         
         final EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
             public void handle(final KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.NUMPAD0) {
-                    learnedHandler();
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    showAnswer();
                 }
                 else if (keyEvent.getCode() == KeyCode.NUMPAD1) {
                     repeatSoonHandler();
@@ -69,6 +69,9 @@ public class StudyViewController extends AnchorPane  {
                 else if (keyEvent.getCode() == KeyCode.NUMPAD2) {
                         repeatLaterHandler();
                     }
+                else if (keyEvent.getCode() == KeyCode.NUMPAD3) {
+                    learnedHandler();
+                }
             }
         };
 
@@ -118,12 +121,14 @@ public class StudyViewController extends AnchorPane  {
     }
 
     public void showNextNote() {
+        
         if(!collectionService.isSelectedCollectionRelevantForStudy())
         {
             State.getMainApp().showInfoDialog("Congrats! You learned all the notes in this collection!");
             return;
         }
 
+        Collections.shuffle(notesService.unlearnedNotesCurrentCollection);
         setCurrentNote(getNextNoteIndex());
         showNote();
         hideOptionsButtons();
@@ -159,12 +164,13 @@ public class StudyViewController extends AnchorPane  {
     
     public void repeatSoonHandler() {
         showNextNote();
-        log.debug("Will repeat soon");
+        log.debug("Added to repeat soon queue");
     }
     
     public void repeatLaterHandler() {
+        notesService.addToRemindLaterQueue(currentNote.getId());
         showNextNote();
-        log.debug("Will add to reminder queue");
+        log.debug("Added to reminder queue");
     }
 
 }

@@ -15,7 +15,7 @@
     <AnchorPane fx:id="currentCollectionContent" focusTraversable="true" BorderPane.alignment="CENTER" />
   </center>
   <left>
-    <VBox id="leftMenu" fx:id="leftSidebar" prefHeight="545.0" prefWidth="350.0" styleClass="left-menu">
+    <VBox id="leftMenu" fx:id="leftSidebar" prefHeight="545.0" prefWidth="250" styleClass="left-menu">
       <children>
         <Label id="colectionsLabel" fx:id="collectionsLabel" alignment="CENTER" prefHeight="22.0" prefWidth="225.0" styleClass="left-menu-title" text="COLLECTIONS" />
         <TextField fx:id="addCollectionTextField" alignment="CENTER" minHeight="10.0" onAction="#addCollectionHandler" opacity="0.84" prefWidth="225.0" promptText="New collection">

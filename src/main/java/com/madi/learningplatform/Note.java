@@ -10,6 +10,7 @@ public class Note implements Comparable<Note>{
     private String back = "";
     private Date dateAdded = new Date();
     private Boolean learned = false;
+    private Boolean remindMe = false;
     
     public Note() {
         
@@ -21,12 +22,13 @@ public class Note implements Comparable<Note>{
         this.learned = false;
     }
     
-    public Note(ObjectId id, String front, String back, Date dateAdded, Boolean learned) {
+    public Note(ObjectId id, String front, String back, Date dateAdded, Boolean learned, Boolean remindMe) {
         this.id = id;
         this.front = front;
         this.back = back;
         this.dateAdded = dateAdded;
         this.learned = learned;
+        this.remindMe = remindMe;
     }
     public ObjectId getId() {
         return id;
@@ -61,6 +63,14 @@ public class Note implements Comparable<Note>{
 
     public void setLearned(Boolean learned) {
         this.learned = learned;
+    }
+    
+    public Boolean getRemindMe() {
+        return remindMe;
+    }
+
+    public void setRemindMe(Boolean remindMe) {
+        this.remindMe = remindMe;
     }
 
     public String toString() {
