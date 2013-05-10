@@ -53,7 +53,7 @@ public class NoteReminderUpdater implements Job {
         
         Collections.shuffle(expressions);
         
-        String emailContent = "Morning sunshine! :) \n ----------------------------\n\n";
+        String emailContent = "Morning sunshine! :) \n ----------------------------\n\n Here are your phrases:\n ----------------------------\n\n";
         
         Iterator<Note> it = expressions.iterator();
         while(it.hasNext()) {
