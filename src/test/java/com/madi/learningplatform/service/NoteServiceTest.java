@@ -2,15 +2,12 @@
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import com.madi.learningplatform.Collection;
 import com.madi.learningplatform.CollectionDuplicateException;
 import com.madi.learningplatform.Note;

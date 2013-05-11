@@ -19,7 +19,6 @@ public class Note implements Comparable<Note>{
     public Note(String front, String back) {
         this.front = front;
         this.back = back;
-        this.learned = false;
     }
     
     public Note(ObjectId id, String front, String back, Date dateAdded, Boolean learned, Boolean remindMe) {

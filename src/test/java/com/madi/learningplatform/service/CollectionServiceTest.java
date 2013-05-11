@@ -34,7 +34,7 @@ public class CollectionServiceTest {
         throws Exception {
 
         CollectionService result = new CollectionService();
-        assertNotNull(result);
+        Assert.assertNotNull(result);
     }
 
     /**

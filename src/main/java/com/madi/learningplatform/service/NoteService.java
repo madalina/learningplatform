@@ -78,7 +78,7 @@ public class NoteService {
         document.put("collection", selectedCollection.getId());
         document.put("dateAdded", new Date());
         document.put("learned", note.getLearned());
-        document.put("learned", note.getRemindMe());
+        document.put("remindme", note.getRemindMe());
         table.insert(document);
 
         // fetch the note with the generated id from the db and add to in-memory
