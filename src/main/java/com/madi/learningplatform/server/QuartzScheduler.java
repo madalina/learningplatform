@@ -28,7 +28,6 @@ public class QuartzScheduler {
                 .withIdentity("job1", "group1")
                 .build();
 
-            // Trigger the job to run now, and then repeat every 40 seconds
             Trigger trigger = newTrigger()
                 .withIdentity("trigger_emails", "group_emails")
                 .startNow()
@@ -37,10 +36,6 @@ public class QuartzScheduler {
            
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
-            
-            Thread.sleep(60000);
-            
-            scheduler.shutdown();
 
         } catch (SchedulerException se) {
             se.printStackTrace();

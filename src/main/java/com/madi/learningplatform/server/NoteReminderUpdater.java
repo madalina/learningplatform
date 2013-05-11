@@ -33,6 +33,13 @@ public class NoteReminderUpdater implements Job {
             .getLogger(NoteReminderUpdater.class);
 
     public static void main(String[] args) {
+        NoteReminderUpdater nru = new NoteReminderUpdater();
+        try {
+            nru.execute(null);
+        } catch (JobExecutionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
@@ -51,14 +58,15 @@ public class NoteReminderUpdater implements Job {
             expressions.add(new Note(row.get("front").toString(),row.get("back").toString()));
         }
         
+        
         Collections.shuffle(expressions);
         
-        String emailContent = "Morning sunshine! :) \n ----------------------------\n\n Here are your phrases:\n ----------------------------\n\n";
+        String emailContent = "Morning sunshine, here are your phrases! :) \n --------------------------------------------------------\n\n";
         
         Iterator<Note> it = expressions.iterator();
         while(it.hasNext()) {
             Note note = it.next();
-            emailContent += (">>" + note.getFront() + " ---> "+ note.getBack() + "\n\n");
+            emailContent += (">" + note.getFront() + " ---> "+ note.getBack() + "\n\n");
         }
         
         emailContent += "\n\nBest regards,\nLearningplatform";
