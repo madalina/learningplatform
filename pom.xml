@@ -4,11 +4,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.madi</groupId>
-	<artifactId>learningplatform</artifactId>
+	<groupId>com.madi.learningplatform</groupId>
+	<artifactId>learningplatform-parent</artifactId>
 	<name>learningplatform</name>
 
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -148,10 +148,21 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<version>2.14.1</version>
 			<type>maven-plugin</type>
 		</dependency>
+		<dependency>
+            <groupId>com.oracle.javafx</groupId>
+            <artifactId>jfxrt</artifactId>
+             <scope>system</scope>
+             <systemPath>/Users/madi/Dev/learningplatform/learningplatform/lib/jfxrt.jar</systemPath>
+            <version>2.0</version>
+        </dependency>
 	</dependencies>
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://localhost:8080</url>
+		<url>http://debianhomeserver.local:8081</url>
 	</ciManagement>
+	<modules>
+		<module>server</module>
+		<module>desktopapp</module>
+	</modules>
 </project>
