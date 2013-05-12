@@ -161,8 +161,4 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<system>Jenkins</system>
 		<url>http://debianhomeserver.local:8081</url>
 	</ciManagement>
-	<modules>
-		<module>server</module>
-		<module>desktopapp</module>
-	</modules>
 </project>
