@@ -152,7 +152,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <groupId>com.oracle.javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <scope>system</scope>
-            <systemPath>${basedir}\src\lib\jfxrt.jar</systemPath>
+            <systemPath>${basedir}/src/lib/jfxrt.jar</systemPath>
             <version>2.0</version>
         </dependency>
 	</dependencies>
