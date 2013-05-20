@@ -3,18 +3,16 @@ package com.madi.learningplatform;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.bson.types.ObjectId;
-
 public class Collection implements Comparable<Collection>{
     private String name;
     private Set<Note> notes = new HashSet<Note>();
-    private ObjectId id;
+    private int id;
    
     public Collection() {
         
     }
     
-    public Collection(ObjectId id, String name) {
+    public Collection(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -23,10 +21,10 @@ public class Collection implements Comparable<Collection>{
         this.name = name;
     }
     
-    public ObjectId getId() {
+    public int getId() {
         return id;
     }
-    public void setId(ObjectId id) {
+    public void setId(int id) {
         this.id = id;
     }
     

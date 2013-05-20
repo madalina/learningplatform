@@ -2,10 +2,8 @@ package com.madi.learningplatform;
 
 import java.util.Date;
 
-import org.bson.types.ObjectId;
-
 public class Note implements Comparable<Note>{
-    private ObjectId id;
+    private int id = 0;
     private String front = "";
     private String back = "";
     private Date dateAdded = new Date();
@@ -21,7 +19,7 @@ public class Note implements Comparable<Note>{
         this.back = back;
     }
     
-    public Note(ObjectId id, String front, String back, Date dateAdded, Boolean learned, Boolean remindMe) {
+    public Note(int id, String front, String back, Date dateAdded, Boolean learned, Boolean remindMe) {
         this.id = id;
         this.front = front;
         this.back = back;
@@ -29,10 +27,10 @@ public class Note implements Comparable<Note>{
         this.learned = learned;
         this.remindMe = remindMe;
     }
-    public ObjectId getId() {
+    public int getId() {
         return id;
     }
-    public void setId(ObjectId id) {
+    public void setId(int id) {
         this.id = id;
     }
     

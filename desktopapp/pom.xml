@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.madi.learningplatform</groupId>
+		<artifactId>learningplatform-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>desktopapp</artifactId>
+	<name>desktopapp</name>
+	
+	<properties>
+        <slf4j.version>1.6.1</slf4j.version>
+    </properties>
+    
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+
+                    <mainClass>com.madi.learningplatform.MainApp</mainClass>
+
+                    <!-- only required if signing the jar file -->
+                    <keyStoreAlias>example-user</keyStoreAlias>
+                    <keyStorePassword>example-password</keyStorePassword>
+                    <permissions>
+                        <permission>all-permissions</permission>
+                    </permissions>
+
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+	<dependencies>
+	   <!-- MigLayout -->
+
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-javafx</artifactId>
+            <version>4.2</version>
+        </dependency>
+	
+		<dependency>
+			<groupId>com.oracle.javafx</groupId>
+			<artifactId>jfxrt</artifactId>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jfxrt.jar</systemPath>
+			<version>2.0</version>
+		</dependency>
+	</dependencies>
+	<groupId>com.madi.learningplatform.desktopapp</groupId>
+</project>
