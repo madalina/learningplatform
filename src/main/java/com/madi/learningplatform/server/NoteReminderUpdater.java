@@ -38,13 +38,12 @@ public class NoteReminderUpdater implements Job {
             nru.execute(null);
         } catch (JobExecutionException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        System.out
-                .println("Preparing to fetch the values to be reminded today...");
+        log.info("Preparing to fetch the values to be reminded today...");
 
         DBCollection table = State.getDatabaseConn().getCollection("notes");
 
