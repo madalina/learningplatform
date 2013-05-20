@@ -42,7 +42,7 @@ public class State {
         if(getInstance().databaseConn == null)
         {
             try {
-                MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
+                MongoClient mongoClient = new MongoClient("debianhomeserver.local", 27017);
                 DB db = mongoClient.getDB("learningplatform");
                 getInstance().databaseConn = db;
             } catch (UnknownHostException e) {
