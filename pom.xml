@@ -71,6 +71,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	</ciManagement>
 	<modules>
 		<module>emailsender</module>
-		<module>desktopapp</module>
+		<!-- <module>desktopapp</module> -->
 	</modules>
 </project>
