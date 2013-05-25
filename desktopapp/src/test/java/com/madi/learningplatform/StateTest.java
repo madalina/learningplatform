@@ -1,8 +1,13 @@
 package com.madi.learningplatform;
 
-import org.junit.*;
-import static org.junit.Assert.*;
-import com.mongodb.DB;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.sql.Connection;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * The class <code>StateTest</code> contains tests for the class <code>{@link State}</code>.
@@ -23,35 +28,11 @@ public class StateTest {
     public void testGetDatabaseConn_1()
         throws Exception {
 
-        DB result = State.getDatabaseConn();
+        Connection result = DatabaseConnection.getConnection();
 
         // add additional test code here
         assertNotNull(result);
         assertEquals("learningplatform", result.toString());
-        assertEquals("learningplatform", result.getName());
-        assertEquals(0, result.getOptions());
-        assertEquals(false, result.isAuthenticated());
-    }
-
-    /**
-     * Run the DB getDatabaseConn() method test.
-     *
-     * @throws Exception
-     *
-     * @generatedBy CodePro at 5/9/13 11:36 AM
-     */
-    @Test
-    public void testGetDatabaseConn_2()
-        throws Exception {
-
-        DB result = State.getDatabaseConn();
-
-        // add additional test code here
-        assertNotNull(result);
-        assertEquals("learningplatform", result.toString());
-        assertEquals("learningplatform", result.getName());
-        assertEquals(0, result.getOptions());
-        assertEquals(false, result.isAuthenticated());
     }
 
     /**

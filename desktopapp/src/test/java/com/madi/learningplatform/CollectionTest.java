@@ -1,10 +1,14 @@
 package com.madi.learningplatform;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashSet;
 import java.util.Set;
-import org.bson.types.ObjectId;
-import org.junit.*;
-import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * The class <code>CollectionTest</code> contains tests for the class <code>{@link Collection}</code>.
@@ -65,10 +69,8 @@ public class CollectionTest {
     @Test
     public void testCollection_3()
         throws Exception {
-        ObjectId id = new ObjectId();
         String name = "";
-
-        Collection result = new Collection(id, name);
+        Collection result = new Collection(-1, name);
 
         // add additional test code here
         assertNotNull(result);
@@ -86,8 +88,8 @@ public class CollectionTest {
     @Test
     public void testAddNote_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
         Note note = new Note();
 
         fixture.addNote(note);
@@ -105,8 +107,8 @@ public class CollectionTest {
     @Test
     public void testCompareTo_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
         Collection o = new Collection();
 
         int result = fixture.compareTo(o);
@@ -119,35 +121,6 @@ public class CollectionTest {
     }
 
     /**
-     * Run the ObjectId getId() method test.
-     *
-     * @throws Exception
-     *
-     * @generatedBy CodePro at 5/9/13 11:37 AM
-     */
-    @Test
-    public void testGetId_1()
-        throws Exception {
-        Collection fixture = new Collection(new ObjectId("518b6e400364ee55d8ed0df7"), "");
-        fixture.setNotes(new HashSet());
-
-        ObjectId result = fixture.getId();
-
-        // add additional test code here
-        assertNotNull(result);
-        assertEquals("518b6e400364ee55d8ed0df7", result.toString());
-        assertEquals(1368092224000L, result.getTime());
-        assertEquals(-655553033, result._inc());
-        assertEquals(1368092224, result._time());
-        assertEquals(56946261, result._machine());
-        assertEquals("55ee6403406e8b51f70dedd8", result.toStringBabble());
-        assertEquals("518b6e400364ee55d8ed0df7", result.toStringMongod());
-        assertEquals(56946261, result.getMachine());
-        assertEquals(-655553033, result.getInc());
-        assertEquals(1368092224, result.getTimeSecond());
-    }
-
-    /**
      * Run the String getName() method test.
      *
      * @throws Exception
@@ -157,8 +130,8 @@ public class CollectionTest {
     @Test
     public void testGetName_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
 
         String result = fixture.getName();
 
@@ -176,33 +149,14 @@ public class CollectionTest {
     @Test
     public void testGetNotes_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
 
         Set<Note> result = fixture.getNotes();
 
         // add additional test code here
         assertNotNull(result);
         assertEquals(0, result.size());
-    }
-
-    /**
-     * Run the void setId(ObjectId) method test.
-     *
-     * @throws Exception
-     *
-     * @generatedBy CodePro at 5/9/13 11:37 AM
-     */
-    @Test
-    public void testSetId_1()
-        throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
-        ObjectId id = new ObjectId();
-
-        fixture.setId(id);
-
-        // add additional test code here
     }
 
     /**
@@ -215,8 +169,8 @@ public class CollectionTest {
     @Test
     public void testSetName_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
         String newName = "";
 
         fixture.setName(newName);
@@ -234,9 +188,9 @@ public class CollectionTest {
     @Test
     public void testSetNotes_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
-        Set<Note> notes = new HashSet();
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
+        Set<Note> notes = new HashSet<Note>();
 
         fixture.setNotes(notes);
 
@@ -253,8 +207,8 @@ public class CollectionTest {
     @Test
     public void testToString_1()
         throws Exception {
-        Collection fixture = new Collection(new ObjectId(), "");
-        fixture.setNotes(new HashSet());
+        Collection fixture = new Collection(-1, "");
+        fixture.setNotes(new HashSet<Note>());
 
         String result = fixture.toString();
 

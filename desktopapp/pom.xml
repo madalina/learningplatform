@@ -54,4 +54,5 @@
 		</dependency>
 	</dependencies>
 	<groupId>com.madi.learningplatform.desktopapp</groupId>
+	<version>0.0.1.2-SNAPSHOT</version>
 </project>

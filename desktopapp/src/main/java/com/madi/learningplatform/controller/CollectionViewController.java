@@ -26,8 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,11 +155,8 @@ public class CollectionViewController extends AnchorPane {
                     
                     try {
                         refreshNotesContainer();
-                    } catch (JsonParseException e) {
-                        log.error(e.getMessage(), e);
-                    } catch (JsonMappingException e) {
-                        log.error(e.getMessage(), e);
-                    } catch (IOException e) {
+                    } 
+                    catch (IOException e) {
                         log.error(e.getMessage(), e);
                     }
                     keyEvent.consume();
@@ -183,16 +179,14 @@ public class CollectionViewController extends AnchorPane {
         addNewNoteDialog.show();
     }
 
-    public void refreshNotesContainer() throws JsonParseException,
-            JsonMappingException, IOException {
+    public void refreshNotesContainer() throws IOException {
         notesService.loadNotesInCollection(State.getSelectedCollection()
                 .getId());
         notesTableView.setItems(notesService.notesCurrentCollection);
 
     }
 
-    public void saveNoteChanges() throws JsonParseException,
-            JsonMappingException, IOException {
+    public void saveNoteChanges() throws IOException {
         Note selectedNote = notesTableView.getSelectionModel()
                 .getSelectedItem();
         selectedNote.setFront(noteFront.getText());
@@ -211,8 +205,7 @@ public class CollectionViewController extends AnchorPane {
         selectedNote.setLearned(learnedCheckbox.isSelected());
     }
 
-    public void deleteNote() throws JsonParseException, JsonMappingException,
-            IOException {
+    public void deleteNote() throws IOException {
         Note selectedNote = notesTableView.getSelectionModel()
                 .getSelectedItem();
         try {

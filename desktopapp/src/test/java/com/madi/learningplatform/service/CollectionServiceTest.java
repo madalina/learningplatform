@@ -1,9 +1,6 @@
 package com.madi.learningplatform.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.apache.log4j.Logger;
-import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +46,7 @@ public class CollectionServiceTest {
     public void testAddCollection_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(new ObjectId(), "Test Collection");
+        Collection col = new Collection(-1, "Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -69,7 +66,7 @@ public class CollectionServiceTest {
     public void testAddCollection_2()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(new ObjectId(), "Test Collection");
+        Collection col = new Collection(-1, "Test Collection");
         fixture.addCollection(col);
         
         boolean throwedException = false;
@@ -99,7 +96,7 @@ public class CollectionServiceTest {
     public void testDeleteCollection_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(new ObjectId(), "Test Collection");
+        Collection col = new Collection(-1, "Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -131,7 +128,7 @@ public class CollectionServiceTest {
     public void testLoadCollections_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(new ObjectId(), "Test Collection");
+        Collection col = new Collection(-1, "Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -157,7 +154,7 @@ public class CollectionServiceTest {
     public void testRenameCollection_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        fixture.addCollection(new Collection(new ObjectId(), "Test Collection"));
+        fixture.addCollection(new Collection(-1, "Test Collection"));
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
 

@@ -1,10 +1,13 @@
 package com.madi.learningplatform;
 
-import java.text.DateFormat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
-import org.bson.types.ObjectId;
-import org.junit.*;
-import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * The class <code>NoteTest</code> contains tests for the class <code>{@link Note}</code>.
@@ -69,7 +72,7 @@ public class NoteTest {
     @Test
     public void testCompareTo_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
         Note o = new Note();
 
         int result = fixture.compareTo(o);
@@ -86,7 +89,7 @@ public class NoteTest {
     @Test
     public void testGetBack_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
 
         String result = fixture.getBack();
 
@@ -104,7 +107,7 @@ public class NoteTest {
     @Test
     public void testGetFront_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
 
         String result = fixture.getFront();
 
@@ -123,7 +126,7 @@ public class NoteTest {
     @Test
     public void testGetLearned_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
 
         Boolean result = fixture.getLearned();
 
@@ -143,7 +146,7 @@ public class NoteTest {
     @Test
     public void testSetBack_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
         String back = "";
 
         fixture.setBack(back);
@@ -161,7 +164,7 @@ public class NoteTest {
     @Test
     public void testSetDateAdded_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
         Date dateAdded = new Date();
 
         fixture.setDateAdded(dateAdded);
@@ -179,7 +182,7 @@ public class NoteTest {
     @Test
     public void testSetFront_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
         String front = "";
 
         fixture.setFront(front);
@@ -197,8 +200,8 @@ public class NoteTest {
     @Test
     public void testSetId_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
-        ObjectId id = new ObjectId();
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
+        int id = -1;
 
         fixture.setId(id);
 
@@ -215,30 +218,12 @@ public class NoteTest {
     @Test
     public void testSetLearned_1()
         throws Exception {
-        Note fixture = new Note(new ObjectId(), "", "", new Date(), new Boolean(true), new Boolean(false));
+        Note fixture = new Note(-1, "", "", new Date(), new Boolean(true), new Boolean(false));
         Boolean learned = new Boolean(true);
 
         fixture.setLearned(learned);
 
         // add additional test code here
-    }
-
-    /**
-     * Run the String toString() method test.
-     *
-     * @throws Exception
-     *
-     * @generatedBy CodePro at 5/9/13 11:36 AM
-     */
-    @Test
-    public void testToString_1()
-        throws Exception {
-        Note fixture = new Note(new ObjectId("518b6e320364e8b3acf6c6a6"), "", "", new Date(), new Boolean(true), new Boolean(false));
-
-        String result = fixture.toString();
-
-        // add additional test code here
-        assertEquals(" : ; id 518b6e320364e8b3acf6c6a6", result);
     }
 
     /**

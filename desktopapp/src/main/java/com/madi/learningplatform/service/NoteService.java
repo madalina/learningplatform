@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.Collection;
+import com.madi.learningplatform.DatabaseConnection;
 import com.madi.learningplatform.Note;
 import com.madi.learningplatform.State;
 import com.madi.learningplatform.exceptions.CollectionNotFoundException;
@@ -35,7 +36,7 @@ public class NoteService {
         ResultSet resultSet = null;
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
                     .executeQuery("select * from notes where collection = " + collectionId);
 
@@ -219,7 +220,7 @@ public class NoteService {
         ResultSet resultSet = null;
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
                     .executeQuery("select * from notes where front = " + front + " and back = " + back);
 

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,8 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.Collection;
-import com.madi.learningplatform.Note;
-import com.madi.learningplatform.State;
+import com.madi.learningplatform.DatabaseConnection;
 import com.madi.learningplatform.exceptions.CollectionDuplicateException;
 import com.madi.learningplatform.exceptions.CollectionNotFoundException;
 
@@ -38,7 +35,7 @@ public class CollectionService {
         ResultSet resultSet = null;
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement.executeQuery("select * from collections");
 
             while (resultSet.next()) {
@@ -56,7 +53,7 @@ public class CollectionService {
         ResultSet resultSet = null;
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
                     .executeQuery("select * from collections where name = " + name);
 
@@ -76,7 +73,7 @@ public class CollectionService {
         ResultSet resultSet = null;
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
                     .executeQuery("select * from collections where id = " + id);
 

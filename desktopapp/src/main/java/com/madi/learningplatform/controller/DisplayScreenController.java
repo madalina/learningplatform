@@ -30,8 +30,6 @@ import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -260,10 +258,6 @@ public class DisplayScreenController implements Initializable {
 
         try {
             notesService.loadNotesInCollection(collection.getId());
-        } catch (JsonParseException e) {
-            log.error(e.getMessage(), e);
-        } catch (JsonMappingException e) {
-            log.error(e.getMessage(), e);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }

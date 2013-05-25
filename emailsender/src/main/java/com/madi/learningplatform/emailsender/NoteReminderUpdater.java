@@ -23,7 +23,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.madi.learningplatform.Note;
-import com.madi.learningplatform.State;
+import com.madi.learningplatform.DatabaseConnection;
 
 public class NoteReminderUpdater implements Job {
 
@@ -47,7 +47,7 @@ public class NoteReminderUpdater implements Job {
         List<Note> expressions = new ArrayList<Note>();
 
         try {
-            statement = State.getDatabaseConn().createStatement();
+            statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
                     .executeQuery("select * from notes where remindme = true");
 

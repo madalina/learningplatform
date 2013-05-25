@@ -3,7 +3,6 @@
 import static org.junit.Assert.assertNotNull;
 
 import org.apache.log4j.Logger;
-import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -241,7 +240,7 @@ public class NoteServiceTest {
         throws Exception {
         try
         {
-            collectionService.addCollection(new Collection(new ObjectId(), "Test Collection"));
+            collectionService.addCollection(new Collection(-1, "Test Collection"));
         }
         catch(CollectionDuplicateException ex)
         {
