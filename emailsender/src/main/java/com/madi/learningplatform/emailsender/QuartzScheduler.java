@@ -20,7 +20,7 @@ public class QuartzScheduler {
 
             // and start it off
             scheduler.start();
-
+            
             Logger.getLogger(QuartzScheduler.class).info(
                     "Started the quartz scheduler at " + new Date());
             // define the job and tie it to our HelloJob class
@@ -33,6 +33,8 @@ public class QuartzScheduler {
 
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
+            Logger.getLogger(QuartzScheduler.class).info("Scheduled the job NoteReminderUpdater");
+            
 
         } catch (SchedulerException se) {
             se.printStackTrace();

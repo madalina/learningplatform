@@ -22,7 +22,7 @@ public class DatabaseConnection {
 
                 getInstance().databaseConn = DriverManager
                         .getConnection("jdbc:mysql://debianhomeserver.local/learningplatform?"
-                                + "user=root&password=debianmysql");;
+                                + "user=root&password=debianmysql");
             } catch (ClassNotFoundException e) {
                 log.error(e.getMessage(), e);
             } catch (SQLException e) {
