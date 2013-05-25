@@ -7,14 +7,10 @@ import javafx.scene.control.TextField;
 
 import javax.security.auth.login.LoginException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.madi.learningplatform.MainApp;
 import com.madi.learningplatform.State;
 
 public class LoginScreenController {
-    private static final Logger log = LoggerFactory.getLogger(LoginScreenController.class);
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label messageLabel;

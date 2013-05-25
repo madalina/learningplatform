@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.madi.learningplatform.Collection;
 import com.madi.learningplatform.DatabaseConnection;
 import com.madi.learningplatform.Note;
-import com.madi.learningplatform.State;
 import com.madi.learningplatform.exceptions.CollectionNotFoundException;
 import com.madi.learningplatform.exceptions.NoteNotFoundException;
 
