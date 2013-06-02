@@ -37,7 +37,7 @@ public class QuartzScheduler {
             
 
         } catch (SchedulerException se) {
-            se.printStackTrace();
+            Logger.getLogger(QuartzScheduler.class).error(se.getMessage(), se);
         }
     }
 }

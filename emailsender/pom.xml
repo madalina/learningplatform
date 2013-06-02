@@ -11,7 +11,7 @@
 	</parent>
 	<artifactId>emailsender</artifactId>
 	<groupId>com.madi.learningplatform.emailsender</groupId>
-
+      
     <build>
         <plugins>
             <plugin>
@@ -21,11 +21,27 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <mainClass>com.madi.learningplatform.emailsender.QuartzScheduler</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
+            
+	      <plugin>
+	        <groupId>org.codehaus.mojo</groupId>
+	        <artifactId>appassembler-maven-plugin</artifactId>
+	        <version>1.3.1</version>
+	        <configuration>
+	          <programs>
+	            <program>
+	              <mainClass>com.madi.learningplatform.emailsender.QuartzScheduler</mainClass>
+	              <name>EmailScheduler</name>
+	            </program>
+	          </programs>
+	        </configuration>
+	      </plugin>
+      
         </plugins>
     </build>
     
@@ -35,21 +51,7 @@
 			<artifactId>quartz</artifactId>
 			<version>2.1.7</version>
 		</dependency>
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-oracle</artifactId>
-			<version>2.1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-weblogic</artifactId>
-			<version>2.1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz-jboss</artifactId>
-			<version>2.1.7</version>
-		</dependency>
+
 		<dependency>
 			<groupId>javamail</groupId>
 			<artifactId>javamail</artifactId>
