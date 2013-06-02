@@ -45,7 +45,7 @@ public class NoteServiceTest {
     public void testAddNote_1()
         throws Exception {
         noteService.addNote(new Note("front", "back"), selectedCollection);
-        Assert.assertTrue(noteService.countNotesInCollection(selectedCollection.getId()) == 1);
+        Assert.assertEquals(noteService.countNotesInCollection(selectedCollection.getId()), 1);
         noteService.deleteNote(noteService.getNote("front", "back"));
     }
 
@@ -71,26 +71,6 @@ public class NoteServiceTest {
         
         Assert.assertTrue(throwsEx);
         Assert.assertTrue(noteService.countNotesInCollection(selectedCollection.getId()) == 0);
-    }
-
-    /**
-     * Run the void addNote(Note,Collection) method test.
-     *
-     * @throws Exception
-     *
-     * @generatedBy CodePro at 5/9/13 11:37 AM
-     */
-    @Test
-    public void testAddNote_3()
-        throws Exception {
-        boolean throwsEx = false;
-        try {
-            noteService.getNote("adasdasd","");
-        }
-        catch(NoteNotFoundException ex) {
-            throwsEx = true;
-        }
-        Assert.assertTrue(throwsEx);
     }
 
     /**
@@ -240,7 +220,7 @@ public class NoteServiceTest {
         throws Exception {
         try
         {
-            collectionService.addCollection(new Collection(-1, "Test Collection"));
+            collectionService.addCollection(new Collection("Test Collection"));
         }
         catch(CollectionDuplicateException ex)
         {

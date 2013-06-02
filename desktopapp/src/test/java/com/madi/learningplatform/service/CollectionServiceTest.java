@@ -42,11 +42,11 @@ public class CollectionServiceTest {
      *
      * @generatedBy CodePro at 5/9/13 11:36 AM
      */
-    @Test
-    public void testAddCollection_1()
+    @Test(expected=CollectionDuplicateException.class)
+    public void testAddCollection_1() 
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(-1, "Test Collection");
+        Collection col = new Collection("Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -62,7 +62,7 @@ public class CollectionServiceTest {
      * @throws Exception
      *
      */
-    @Test
+    @Test(expected = CollectionDuplicateException.class)
     public void testAddCollection_2()
         throws Exception {
         CollectionService fixture = new CollectionService();
@@ -92,11 +92,11 @@ public class CollectionServiceTest {
      *
      * @generatedBy CodePro at 5/9/13 11:36 AM
      */
-    @Test
+    @Test(expected = CollectionDuplicateException.class)
     public void testDeleteCollection_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(-1, "Test Collection");
+        Collection col = new Collection("Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -124,11 +124,11 @@ public class CollectionServiceTest {
      *
      * @generatedBy CodePro at 5/9/13 11:36 AM
      */
-    @Test
+    @Test(expected = CollectionDuplicateException.class)
     public void testLoadCollections_1()
         throws Exception {
         CollectionService fixture = new CollectionService();
-        Collection col = new Collection(-1, "Test Collection");
+        Collection col = new Collection("Test Collection");
         fixture.addCollection(col);
         
         Collection fetchedCol = fixture.getCollection("Test Collection");
@@ -150,7 +150,7 @@ public class CollectionServiceTest {
      *
      * @generatedBy CodePro at 5/9/13 11:36 AM
      */
-    @Test
+    @Test(expected = CollectionDuplicateException.class)
     public void testRenameCollection_1()
         throws Exception {
         CollectionService fixture = new CollectionService();

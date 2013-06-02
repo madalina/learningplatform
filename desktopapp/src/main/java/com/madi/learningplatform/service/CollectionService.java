@@ -1,6 +1,8 @@
 package com.madi.learningplatform.service;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,13 +51,15 @@ public class CollectionService {
     }
 
     public Collection getCollection(String name) throws CollectionNotFoundException {
-        Statement statement = null;
+        Connection conn = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = DatabaseConnection.getConnection().createStatement();
-            resultSet = statement
-                    .executeQuery("select * from collections where name = " + name);
+            conn = DatabaseConnection.getConnection();
+            statement = conn.prepareStatement("select * from collections where name = ?");
+            statement.setString(1, name);
+            resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 return new Collection(resultSet.getInt("id"), resultSet.getString("name")); 
@@ -89,30 +93,35 @@ public class CollectionService {
 
     public void addCollection(Collection col)
             throws CollectionDuplicateException {
-//TODO
-        /*
-        try {
-            getCollection(col.getName());
-            throw new CollectionDuplicateException();
-        } catch (CollectionNotFoundException ex) {
-            DBCollection table = State.getDatabaseConn().getCollection(
-                    "collections");
-            BasicDBObject document = new BasicDBObject();
-            document.put("name", col.getName());
-            table.insert(document);
 
-            BasicDBObject whereQuery = new BasicDBObject();
-            whereQuery.put("name", col.getName());
-            DBCursor cursor = table.find(whereQuery);
-            while (cursor.hasNext()) {
-                DBObject row = cursor.next();
-                collections.add(new Collection((ObjectId) row.get("_id"), row
-                        .get("name").toString()));
+        
+        try {
+            if(getCollection(col.getName()) != null)
+                throw new CollectionDuplicateException();
+        } catch (CollectionNotFoundException ex) {
+            Connection conn = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+
+            try {
+                conn = DatabaseConnection.getConnection();
+                statement = conn.prepareStatement("insert into collections (name) values (?)");
+                statement.setString(1, col.getName());
+                statement.executeUpdate();
+                
+                statement = conn.prepareStatement("select * from collections where name = ?");
+                statement.setString(1, col.getName());
+                resultSet = statement.executeQuery();
+                if(resultSet.next())
+                {
+                    collections.add(new Collection(resultSet.getInt("id"), resultSet.getString("name")));
+                }
+            } catch (SQLException e) {
+                log.error(e.getMessage(), e);
             }
-            return;
         }
-        */
     }
+    
 
     public void deleteCollection(int id) {
         //TODO
