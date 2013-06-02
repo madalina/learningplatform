@@ -52,12 +52,12 @@
 			<systemPath>${basedir}/lib/jfxrt.jar</systemPath>
 			<version>2.0</version>
 		</dependency>
+
 		<dependency>
-            <groupId>com.madi.learningplatform.common</groupId>
-            <artifactId>common</artifactId>
-            <version>0.1.1-SNAPSHOT</version>
-        </dependency>
-        
+			<groupId>com.madi.learningplatform.common</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<groupId>com.madi.learningplatform.desktopapp</groupId>
 	<version>0.1.1-SNAPSHOT</version>

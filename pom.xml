@@ -9,7 +9,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<name>learningplatform</name>
 
 	<packaging>pom</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<properties>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -73,5 +73,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	   <module>common</module>
 		<module>emailsender</module>
 		<!-- <module>desktopapp</module> -->
+		<module>desktopapp</module>
 	</modules>
 </project>
