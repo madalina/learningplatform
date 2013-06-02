@@ -29,11 +29,11 @@ public class QuartzScheduler {
 
             Trigger trigger = newTrigger()
                     .withIdentity("trigger_emails", "group_emails").startNow()
-                    .withSchedule(dailyAtHourAndMinute(7, 0)).build();
+                    .withSchedule(dailyAtHourAndMinute(06, 00)).build();
 
             // Tell quartz to schedule the job using our trigger
             scheduler.scheduleJob(job, trigger);
-            Logger.getLogger(QuartzScheduler.class).info("Scheduled the job NoteReminderUpdater");
+            Logger.getLogger(QuartzScheduler.class).info("Scheduled the job NoteReminderUpdater for 06:00");
             
 
         } catch (SchedulerException se) {

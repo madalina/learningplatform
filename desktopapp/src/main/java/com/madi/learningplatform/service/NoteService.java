@@ -33,6 +33,9 @@ public class NoteService {
     }
 
     public void loadNotesInCollection(int collectionId) throws IOException {
+        notesCurrentCollection.clear();
+        unlearnedNotesCurrentCollection.clear();
+        
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
@@ -46,8 +49,9 @@ public class NoteService {
                 if (d == null)
                     d = new Date();
 
-                Note note = new Note(resultSet.getInt("id"), resultSet.getString("front"), resultSet.getString("back"), d,
-                        resultSet.getBoolean("learned"), resultSet.getBoolean("remindme"));
+                Note note = new Note(resultSet.getInt("id"), resultSet.getString("front"),
+                                    resultSet.getString("back"), d,
+                                    resultSet.getBoolean("learned"), resultSet.getBoolean("remindme"));
                 notesCurrentCollection.add(note);
 
                 if (!note.getLearned())
@@ -57,9 +61,6 @@ public class NoteService {
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }
-        
-        notesCurrentCollection.clear();
-        unlearnedNotesCurrentCollection.clear();
     }
 
     public void addNote(Note note, Collection selectedCollection)

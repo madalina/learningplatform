@@ -40,7 +40,7 @@ public class NoteReminderUpdater implements Job {
     }
 
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
-        log.info("Preparing to fetch the values to be reminded today...");
+        log.info("Preparing to fetch today's batch of reminders...");
 
         Statement statement = null;
         ResultSet resultSet = null;
@@ -49,7 +49,7 @@ public class NoteReminderUpdater implements Job {
         try {
             statement = DatabaseConnection.getConnection().createStatement();
             resultSet = statement
-                    .executeQuery("select * from notes where remindme = true");
+                    .executeQuery("select * from notes where remindme = true and collection = 1");
 
             while (resultSet.next()) {
                 expressions.add(new Note(resultSet.getString("front"),
@@ -61,7 +61,7 @@ public class NoteReminderUpdater implements Job {
         
         Collections.shuffle(expressions);
 
-        String emailContent = "Morning sunshine, here are your phrases! :) \n --------------------------------------------------------\n\n";
+        String emailContent = "Morning sunshine, here are your Norwegian phrases! :) \n --------------------------------------------------------\n\n";
 
         Iterator<Note> it = expressions.iterator();
         while (it.hasNext()) {

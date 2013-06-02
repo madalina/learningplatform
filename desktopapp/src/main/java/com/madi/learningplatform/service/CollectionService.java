@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.madi.learningplatform.Collection;
 import com.madi.learningplatform.DatabaseConnection;
+import com.madi.learningplatform.State;
 import com.madi.learningplatform.exceptions.CollectionDuplicateException;
 import com.madi.learningplatform.exceptions.CollectionNotFoundException;
 
@@ -124,49 +125,43 @@ public class CollectionService {
     
 
     public void deleteCollection(int id) {
-        //TODO
-        /*
         Collection ctr = null;
         for (int i = 0; i < collections.size(); i++) {
-            if (collections.get(i).getId().equals(id))
+            if (collections.get(i).getId() == id)
                 ctr = collections.get(i);
         }
         if (ctr != null)
             collections.remove(ctr);
-
-        DBCollection collection = State.getDatabaseConn().getCollection(
-                "collections");
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("_id", id);
-
-        DBCursor cursor = collection.find(whereQuery);
-        while (cursor.hasNext()) {
-            collection.remove(cursor.next());
+        
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            statement = conn.prepareStatement("delete from collections where id = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
         }
-        */
     }
 
     public void renameCollection(int id, String newName) {
-        //TODO
-        /*
-        DBCollection collection = State.getDatabaseConn().getCollection(
-                "collections");
-
         for (int i = 0; i < collections.size(); i++) {
-            if (id.equals(collections.get(i).getId()))
+            if (id == collections.get(i).getId())
                 collections.get(i).setName(newName);
         }
-
-        BasicDBObject whereQuery = new BasicDBObject();
-        whereQuery.put("_id", id);
-
-        DBCursor cursor = collection.find(whereQuery);
-        if (cursor.hasNext()) {
-            DBObject newObject = cursor.next();
-            newObject.put("name", newName);
-            collection.findAndModify(whereQuery, newObject);
+        
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            statement = conn.prepareStatement("update collections set name = ? where id = ?");
+            statement.setString(1, newName);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
         }
-        */
     }
 
     /**
@@ -174,15 +169,19 @@ public class CollectionService {
      * note.
      */
     public boolean isSelectedCollectionRelevantForStudy() {
-        //TODO
-        return true;
-        /*
-        DBCollection table = State.getDatabaseConn().getCollection("notes");
-        BasicDBObject queryObj = new BasicDBObject();
-        queryObj.put("collection", State.getSelectedCollection().getId());
-        queryObj.put("learned", false);
-        DBCursor cursor = table.find(queryObj);
-        return cursor.count() > 0;
-        */
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            statement = conn.prepareStatement("select * from notes where collection = ? and learned = 0");
+            statement.setInt(1, State.getSelectedCollection().getId());
+            
+            rs = statement.executeQuery();
+            return (rs.next());
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
     }
 }

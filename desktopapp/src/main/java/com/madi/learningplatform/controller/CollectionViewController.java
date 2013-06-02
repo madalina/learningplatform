@@ -116,6 +116,7 @@ public class CollectionViewController extends AnchorPane {
                     "learned"));
                 
             notesTableView.setItems(notesService.notesCurrentCollection);
+            log.info("Initialized the notes table with " + notesService.notesCurrentCollection.size() + " notes");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -183,7 +184,6 @@ public class CollectionViewController extends AnchorPane {
         notesService.loadNotesInCollection(State.getSelectedCollection()
                 .getId());
         notesTableView.setItems(notesService.notesCurrentCollection);
-
     }
 
     public void saveNoteChanges() throws IOException {
