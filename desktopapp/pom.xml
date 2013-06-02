@@ -53,6 +53,6 @@
 			<version>2.0</version>
 		</dependency>
 	</dependencies>
-	<groupId>com.madi.learningplatform.desktopapp</groupId>
-	<version>0.0.1.2-SNAPSHOT</version>
+	<groupId>com.madi.learningplatform</groupId>
+	<version>0.0.1.1-SNAPSHOT</version>
 </project>
