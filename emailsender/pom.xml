@@ -7,10 +7,10 @@
 	<parent>
 		<groupId>com.madi.learningplatform</groupId>
 		<artifactId>learningplatform-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>emailsender</artifactId>
-	<groupId>com.madi.learningplatform</groupId>
+	<groupId>com.madi.learningplatform.emailsender</groupId>
 
     <build>
         <plugins>
@@ -75,6 +75,12 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.madi.learningplatform.common</groupId>
+			<artifactId>common</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
-	<version>0.0.1.1-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 </project>
